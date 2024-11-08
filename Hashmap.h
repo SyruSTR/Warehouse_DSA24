@@ -46,11 +46,13 @@ namespace Warehouse {
         unsigned int buffer_size_{};
         unsigned int size_{};
         unsigned int non_nullptr;
+        double rehash_percent = 0.7;
 
     public:
 
         void printMap(){}
         void resize();
+        void rehash();
         void increase();
         Hashmap();
 
@@ -80,6 +82,31 @@ namespace Warehouse {
         }
     }
 
+    template<class T>
+    void Hashmap<T>::resize() {
+        this->non_nullptr = 0;
+        int new_buffer_size_ = buffer_size_ * 2;
+        Node** new_table = new Node*[new_buffer_size_];
+
+        for(int i = 0; i < new_buffer_size_; i++) {
+            new_table[i] = NULL;
+        }
+
+        swap(this->table, new_table);
+
+        for (int i = 0; i < new_buffer_size_; i++) {
+            if(new_table[i] && new_table[i]->state)
+                addItem(new_table[i]->value);
+        }
+
+        for (int i = 0; i < this->buffer_size_; i++) {
+            if(new_table[i])
+                delete new_table[i];
+        }
+        detele(new_table);
+        this->buffer_size_ = new_buffer_size_;
+    }
+
     template<>
     void Hashmap<Item>::printMap() {
         for (int i = 0; i < buffer_size_;i++) {
@@ -92,9 +119,12 @@ namespace Warehouse {
 
 
 
-    template<>
-    bool Hashmap<Item>::addItem(Item& value) {
-        //todo rezise and rehash
+    template<class T>
+    bool Hashmap<T>::addItem(T &value) {
+        //todo rehash
+        if(this->size_ > this->buffer_size_ * this->rehash_percent)
+            rehash();
+
 
         int hash1 = hashFunction1(value, buffer_size_);
         int hash2 = hashFunction2(value, buffer_size_);
