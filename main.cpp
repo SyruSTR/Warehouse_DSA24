@@ -17,6 +17,12 @@ int main() {
     map->addItem(*item4);
 
     map->removeItem(*item1);
+    map->removeItem(*item2);
+    map->removeItem(*item3);
+    map->removeItem(*item4);
+
+    map->addItem(*item3);
+
 
     map->printMap();
 
