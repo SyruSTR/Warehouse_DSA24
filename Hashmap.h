@@ -40,7 +40,7 @@ namespace Warehouse {
 
             Node(const T &value) : value(value), state(true) {}
         };
-        const unsigned int DEFAULT_CAPACITY = 16;
+        const unsigned int DEFAULT_CAPACITY = 4;
 
         Node** table;
         unsigned int buffer_size_{};
@@ -84,31 +84,38 @@ namespace Warehouse {
 
     template<class T>
     void Hashmap<T>::resize() {
-        this->non_nullptr = 0;
-        int new_buffer_size_ = buffer_size_ * 2;
-        Node** new_table = new Node*[new_buffer_size_];
 
-        for(int i = 0; i < new_buffer_size_; i++) {
+        int past_buffer_size_ = buffer_size_;
+        buffer_size_ *= 2;
+        size_ = 0;
+        non_nullptr = 0;
+        Node** new_table = new Node*[buffer_size_];
+
+        for(int i = 0; i < past_buffer_size_; i++) {
             new_table[i] = NULL;
         }
 
-        swap(this->table, new_table);
+        std::swap(table, new_table);
 
-        for (int i = 0; i < new_buffer_size_; i++) {
+        for (int i = 0; i < past_buffer_size_; i++) {
             if(new_table[i] && new_table[i]->state)
                 addItem(new_table[i]->value);
         }
 
-        for (int i = 0; i < this->buffer_size_; i++) {
+        for (int i = 0; i < past_buffer_size_; i++) {
             if(new_table[i])
                 delete new_table[i];
         }
-        detele(new_table);
-        this->buffer_size_ = new_buffer_size_;
+        delete new_table;
     }
 
     template<>
     void Hashmap<Item>::printMap() {
+
+        std::cout << "Main info:" << std::endl;
+        std::cout << "Size: " << size_ << std::endl;
+        std::cout << "Non_nullptr_elements: " << non_nullptr << std::endl;
+        std::cout << "Buffer size: " << buffer_size_ << std::endl;
         for (int i = 0; i < buffer_size_;i++) {
             if(table[i]) {
                 Item item = table[i]->value;
@@ -123,7 +130,7 @@ namespace Warehouse {
     bool Hashmap<T>::addItem(T &value) {
         //todo rehash
         if(this->size_ > this->buffer_size_ * this->rehash_percent)
-            rehash();
+            resize();
 
 
         int hash1 = hashFunction1(value, buffer_size_);
