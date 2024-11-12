@@ -53,13 +53,12 @@ namespace Warehouse {
         void printMap(){}
         void resize();
         void rehash();
-        void increase();
         Hashmap();
 
         ~Hashmap();
 
         bool addItem(T& value);
-        int removeItem();
+        bool removeItem(T& value);
         unsigned int getItemID(std::string itemName);
     };
 
@@ -162,6 +161,25 @@ namespace Warehouse {
 
         return true;
     }
+
+    template<class T>
+    bool Hashmap<T>::removeItem(T& value) {
+        int hash1 = hashFunction1(value, buffer_size_);
+        int hash2 = hashFunction2(value, buffer_size_);
+
+        int i = 0;
+        while (table[hash1] != NULL && i < buffer_size_) {
+            if(table[hash1]->value == value && table[hash1]->state) {
+                table[hash1]->state = false;
+                size_--;
+                return true;
+            }
+            hash1 = (hash1 + hash2) % buffer_size_;
+            i++;
+        }
+        return false;
+    }
+
 
     template<class T>
     Hashmap<T>::~Hashmap() {
