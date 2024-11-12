@@ -126,12 +126,36 @@ namespace Warehouse {
     }
 
 
+    template<class T>
+    void Hashmap<T>::rehash() {
+        non_nullptr = 0;
+        size_ = 0;
+        Node** new_table = new Node*[buffer_size_];
+        for (int i = 0; i < buffer_size_; i++) {
+            new_table[i] = NULL;
+        }
+
+        std::swap(table, new_table);
+
+        for (int i = 0; i < buffer_size_; i++) {
+            if(new_table[i] && new_table[i]->state) {
+                addItem(new_table[i]->value);
+            }
+        }
+        for (int i = 0; i < buffer_size_; i++) {
+            if(new_table[i])
+                delete new_table[i];
+        }
+        delete new_table;
+    }
+
 
     template<class T>
     bool Hashmap<T>::addItem(T &value) {
-        //todo rehash
         if(this->size_ > this->buffer_size_ * this->rehash_percent)
             resize();
+        if(this->non_nullptr > this->size_*2)
+            rehash();
 
 
         int hash1 = hashFunction1(value, buffer_size_);
