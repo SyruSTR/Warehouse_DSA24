@@ -59,15 +59,23 @@ namespace Warehouse {
 
         bool addItem(T& value);
         bool removeItem(T& value);
-        unsigned int getItemID(std::string itemName);
+        Node* findItem(int key);
     };
 
     int hashFunction1(const Item& item, const int table_size) {
         return (((int)item.itemID << 8) * 100 / table_size) % table_size;
     }
 
+    int hashFunction1(const int key, const int table_size) {
+        return ((key << 8) * 100 / table_size) % table_size;
+    }
+
     int hashFunction2(const Item& item, const int table_size) {
         return (((int)item.itemID + 100 % table_size) * 100 / table_size) % table_size;
+    }
+
+    int hashFunction2(const int key, const int table_size) {
+        return ((key + 100 % table_size) * 100 / table_size) % table_size;
     }
 
     template<typename T>
@@ -79,6 +87,25 @@ namespace Warehouse {
         for (int i = 0; i < DEFAULT_CAPACITY; i++) {
             table[i] = NULL;
         }
+    }
+
+
+    //Enter item ID of the item to search for
+    template<class T>
+    typename Hashmap<T>::Node* Hashmap<T>::findItem(int key) {
+        int hash1 = hashFunction1(key, buffer_size_);
+        int hash2 = hashFunction2(key, buffer_size_);
+
+        int i = 0;
+        while(table[hash1] !=NULL && i < buffer_size_) {
+            if(table[hash1]->state) {
+                return table[hash1];
+            }
+            hash1 = (hash1+hash2) % buffer_size_;
+            i++;
+        }
+
+        return NULL;
     }
 
     template<class T>
