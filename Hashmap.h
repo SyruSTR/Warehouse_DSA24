@@ -28,6 +28,14 @@ namespace Warehouse {
                 && this->itemName == item.itemName
                 && this->price == item.price;
         }
+        bool operator==(const int key) {
+            return this->itemID == key;
+        }
+
+        void print() {
+            std::cout << itemID << " " << itemName << " " << price << " " << count << std::endl;
+        }
+
     };
 
     template <class T>
@@ -58,7 +66,7 @@ namespace Warehouse {
         ~Hashmap();
 
         bool addItem(T& value);
-        bool removeItem(T& value);
+        bool removeItem(int key);
         Node* findItem(int key);
     };
 
@@ -216,13 +224,13 @@ namespace Warehouse {
     }
 
     template<class T>
-    bool Hashmap<T>::removeItem(T& value) {
-        int hash1 = hashFunction1(value, buffer_size_);
-        int hash2 = hashFunction2(value, buffer_size_);
+    bool Hashmap<T>::removeItem(int key) {
+        int hash1 = hashFunction1(key, buffer_size_);
+        int hash2 = hashFunction2(key, buffer_size_);
 
         int i = 0;
         while (table[hash1] != NULL && i < buffer_size_) {
-            if(table[hash1]->value == value && table[hash1]->state) {
+            if(table[hash1]->value == key && table[hash1]->state) {
                 table[hash1]->state = false;
                 size_--;
                 return true;
