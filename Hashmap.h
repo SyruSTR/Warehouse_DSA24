@@ -155,7 +155,7 @@ namespace Warehouse {
                 Item item = table[i]->value;
                 if(!table[i]->state)
                     std::cout << "deleted ";
-                std::cout << item.itemID << item.itemName << "\n";
+                item.print();
             }
         }
     }
