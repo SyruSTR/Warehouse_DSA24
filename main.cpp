@@ -17,7 +17,17 @@ int main() {
     std::cin >> command;
     while( command != "-q") {
         if(command == "-h") {
-            std::cout << "HELP" << std::endl;
+            std::cout <<
+                "This program can storage Items in the warehouse\n"
+            << "Usage:\n"
+            << "command \"-a\" Add item\nFormat for ItemID is number between 1 and 1,\n"
+            << "for item name is simply word\\s\n"
+            << "for price is number between 1 and 1\n"
+            << "for count is number between 1 and 1\n"
+            << "\ncommand \"-r\" - remove item from warehouse by itemID\n"
+            << "\ncommand \"-p\" - print actual items in the warehouse\n"
+            << "\ncommand \"-q\" - quit from the program\n"
+            << std::endl;
         }
         else if(command == "-a") {
             std::cout << "ADD" << std::endl;
