@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits.h>
 
 #include "Hashmap.h"
 
@@ -30,13 +31,34 @@ int main() {
             << std::endl;
         }
         else if(command == "-a") {
+            //todo delete
             std::cout << "ADD" << std::endl;
+            Warehouse::Item * tmpItem = new Warehouse::Item();
+            char tmpStr[100];
+            printf("Enter the itemID, its a number between 0 and %ui: ", INT_MAX);
+            scanf("%d",&tmpItem->itemID);
+            printf("Enter the item name: ");
+            scanf("%99s", &tmpStr);
+            tmpItem->itemName = tmpStr;
+            printf("Enter the price number between 1 and %ui: ", INT_MAX);
+            scanf("\n%ui\n",&tmpItem->price);
+            printf("Enter the count number between 1 and %ui: ", INT_MAX);
+            scanf("\n%ui\n",&tmpItem->count);
+
+            if (map->addItem(*tmpItem))
+                printf("Item added\n");
+            else
+                printf("Item with this name is exist\n");
+
+            //debug,
+            map->printMap();
+
         }
         else if(command == "-r") {
             std::cout << "REMOVE" << std::endl;
         }
         else if(command == "-p") {
-            std::cout << "PRINT" << std::endl;
+            std::cout << "PRINT\n" << std::endl;
         }
         else{
             std::cout << "Wrong operation" << std::endl;
@@ -58,8 +80,6 @@ int main() {
     // map->addItem(*item3);
     // map->addItem(*item4);
 
-
-    map->printMap();
 
     delete(map);
 
