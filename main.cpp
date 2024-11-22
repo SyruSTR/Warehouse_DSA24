@@ -48,7 +48,7 @@ int main() {
             if (map->addItem(*tmpItem))
                 printf("Item added\n");
             else
-                printf("Item with this name is exist\n");
+                printf("Item with this name isnt exist\n");
 
             //debug,
             map->printMap();
@@ -56,6 +56,16 @@ int main() {
         }
         else if(command == "-r") {
             std::cout << "REMOVE" << std::endl;
+            unsigned int removingItemId;
+            printf("Enter the itemID to remove from the warehouse by itemID\n");
+            scanf("%ui",&removingItemId);
+
+            if (map->removeItem(removingItemId))
+                std::cout << "Item removed\n";
+            else
+                std::cout << "Item with this id isnt exist\n";
+
+            map->printMap();
         }
         else if(command == "-p") {
             std::cout << "PRINT\n" << std::endl;
