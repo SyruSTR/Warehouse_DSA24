@@ -28,6 +28,8 @@ int main() {
             << "for count is number between 1 and 1\n"
             << "\ncommand \"-r\" - remove item from warehouse by itemID\n"
             << "\ncommand \"-p\" - print actual items in the warehouse\n"
+            << "\ncommand \"-pm\" - print info about map\n"
+            << "\ncommand \"-c\" - calculate item cost by ItemId\n"
             << "\ncommand \"-q\" - quit from the program\n"
             << std::endl;
         }
@@ -50,10 +52,6 @@ int main() {
                 printf("Item added\n");
             else
                 printf("Item with this name isnt exist\n");
-
-            //debug,
-            map->printMap();
-
         }
         else if(command == "-r") {
             std::cout << "REMOVE" << std::endl;
@@ -65,9 +63,6 @@ int main() {
                 std::cout << "Item removed\n";
             else
                 std::cout << "Item with this id isnt exist\n";
-
-            //todo clean
-            map->printMap();
         }
         else if(command == "-p") {
             std::cout << "PRINT\n" << std::endl;
@@ -86,7 +81,9 @@ int main() {
             else {
                 std::cout << "Item with this id isnt exist\n";
             }
-
+        }
+        else if (command == "-pm") {
+            map->printInfo();
         }
         else{
             std::cout << "Wrong operation" << std::endl;

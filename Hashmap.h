@@ -61,7 +61,8 @@ namespace Warehouse {
 
     public:
 
-        void printMap(){}
+        void printMap();
+        void printInfo() const;
         void resize();
         void rehash();
 
@@ -154,13 +155,16 @@ namespace Warehouse {
         return a.value.itemID < b.value.itemID;
     }
 
-    template<>
-    inline void Hashmap<Item>::printMap() {
-
+    template<class T>
+    void Hashmap<T>::printInfo() const {
         std::cout << "Main info:" << std::endl;
         std::cout << "Size: " << size_ << std::endl;
         std::cout << "Non_nullptr_elements: " << non_nullptr << std::endl;
         std::cout << "Buffer size: " << buffer_size_ << std::endl;
+    }
+
+    template<>
+    inline void Hashmap<Item>::printMap() {
 
         std::vector<Node> items;
         for (int i = 0; i < buffer_size_;i++) {
