@@ -1,8 +1,9 @@
 #ifndef HASHMAP_H
 #define HASHMAP_H
+#include <algorithm>
 #include <iostream>
 #include <string>
-
+#include <vector>
 
 
 namespace Warehouse {
@@ -47,6 +48,8 @@ namespace Warehouse {
             bool state;
 
             Node(const T &value) : value(value), state(true) {}
+
+            static bool compareByID(const Node &a, const Node &b);
         };
         const unsigned int DEFAULT_CAPACITY = 4;
 
@@ -61,6 +64,9 @@ namespace Warehouse {
         void printMap(){}
         void resize();
         void rehash();
+
+        static bool compareByID(const Node &a, const Node &b);
+
         Hashmap();
 
         ~Hashmap();
@@ -143,20 +149,32 @@ namespace Warehouse {
         delete new_table;
     }
 
+    template <>
+    bool Hashmap<Item>::compareByID(const Hashmap<Item>::Node &a, const Hashmap<Item>::Node &b) {
+        return a.value.itemID < b.value.itemID;
+    }
+
     template<>
-    void Hashmap<Item>::printMap() {
+    inline void Hashmap<Item>::printMap() {
 
         std::cout << "Main info:" << std::endl;
         std::cout << "Size: " << size_ << std::endl;
         std::cout << "Non_nullptr_elements: " << non_nullptr << std::endl;
         std::cout << "Buffer size: " << buffer_size_ << std::endl;
+
+        std::vector<Node> items;
         for (int i = 0; i < buffer_size_;i++) {
             if(table[i]) {
-                Item item = table[i]->value;
-                if(!table[i]->state)
-                    std::cout << "deleted ";
-                item.print();
+                items.push_back(*table[i]);
             }
+        }
+        std::sort(items.begin(), items.end(),compareByID);
+
+        for (const auto& value : items) {
+            Item item = value.value;
+            if(!value.state)
+                std::cout << "deleted ";
+            item.print();
         }
     }
 
