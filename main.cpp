@@ -14,6 +14,7 @@ int main() {
     //-a Add item
     //-r remove item
     //-p print hashmap
+    //-c calculate item
     //-q quit
     std::cin >> command;
     while( command != "-q") {
@@ -65,10 +66,27 @@ int main() {
             else
                 std::cout << "Item with this id isnt exist\n";
 
+            //todo clean
             map->printMap();
         }
         else if(command == "-p") {
             std::cout << "PRINT\n" << std::endl;
+            map->printMap();
+        }
+        else if(command == "-c") {
+            std::cout << "CALCULATE\n" << std::endl;
+            int calculatingItemId;
+            printf("Enter the itemID to calculate cost by itemID\n");
+            std::cin >> calculatingItemId;
+            auto item = map->findItem(calculatingItemId);
+
+            if (item) {
+                std::cout << "Item price: " << item->value.price * item->value.count << std::endl;
+            }
+            else {
+                std::cout << "Item with this id isnt exist\n";
+            }
+
         }
         else{
             std::cout << "Wrong operation" << std::endl;
