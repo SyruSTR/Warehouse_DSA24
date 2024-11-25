@@ -34,8 +34,6 @@ int main() {
             << std::endl;
         }
         else if(command == "-a") {
-            //todo delete
-            std::cout << "ADD" << std::endl;
             Warehouse::Item * tmpItem = new Warehouse::Item();
             char tmpStr[100];
             printf("Enter the itemID, its a number between 0 and %ui: ", INT_MAX);
@@ -48,9 +46,7 @@ int main() {
             printf("Enter the count number between 1 and %ui: ", INT_MAX);
             scanf("\n%ui\n",&tmpItem->count);
 
-            if (map->addItem(*tmpItem))
-                printf("Item added\n");
-            else
+            if (!map->addItem(*tmpItem))
                 printf("Item with this name isnt exist\n");
         }
         else if(command == "-r") {
@@ -59,17 +55,13 @@ int main() {
             printf("Enter the itemID to remove from the warehouse by itemID\n");
             scanf("%ui",&removingItemId);
 
-            if (map->removeItem(removingItemId))
-                std::cout << "Item removed\n";
-            else
+            if (!map->removeItem(removingItemId))
                 std::cout << "Item with this id isnt exist\n";
         }
         else if(command == "-p") {
-            std::cout << "PRINT\n" << std::endl;
             map->printMap();
         }
         else if(command == "-c") {
-            std::cout << "CALCULATE\n" << std::endl;
             int calculatingItemId;
             printf("Enter the itemID to calculate cost by itemID\n");
             std::cin >> calculatingItemId;
@@ -90,20 +82,6 @@ int main() {
         }
         std::cin >> command;
     }
-
-
-    std::cout << "Goodbye!" << std::endl;
-
-
-    // Item *item1 = new Item(123123,"GGWP",10,5);
-    // Item *item2 = new Item(777263,"Hehe",50,1);
-    // Item *item3 = new Item(123098,"NotHehe",100,100);
-    // Item *item4 = new Item(454278984,"Something",500,2);
-    //
-    // map->addItem(*item1);
-    // map->addItem(*item2);
-    // map->addItem(*item3);
-    // map->addItem(*item4);
 
 
     delete(map);
