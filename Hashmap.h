@@ -9,10 +9,10 @@
 namespace Warehouse {
 
     struct Item {
-        unsigned int itemID;
+        int itemID;
         std::string itemName;
-        unsigned int price;
-        unsigned int count;
+        int price;
+        int count;
 
         Item() : itemID(0), itemName(""), price(0), count(0) {}
 
@@ -51,12 +51,12 @@ namespace Warehouse {
 
             static bool compareByID(const Node &a, const Node &b);
         };
-        const unsigned int DEFAULT_CAPACITY = 4;
+        const int DEFAULT_CAPACITY = 4;
 
         Node** table;
-        unsigned int buffer_size_{};
-        unsigned int size_{};
-        unsigned int non_nullptr;
+        int buffer_size_{};
+        int size_{};
+        int non_nullptr;
         double rehash_percent = 0.7;
 
     public:
