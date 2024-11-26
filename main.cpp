@@ -69,7 +69,6 @@ int main() {
                 printf("Item with this name isnt exist\n");
         }
         else if(command == "-r") {
-            std::cout << "REMOVE" << std::endl;
             int removingItemId;
             printf("Enter the itemID to remove from the warehouse by itemID\n");
             scanf("%ui",&removingItemId);
