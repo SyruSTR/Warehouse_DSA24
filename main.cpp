@@ -70,7 +70,7 @@ int main() {
         }
         else if(command == "-r") {
             std::cout << "REMOVE" << std::endl;
-            unsigned int removingItemId;
+            int removingItemId;
             printf("Enter the itemID to remove from the warehouse by itemID\n");
             scanf("%ui",&removingItemId);
 
