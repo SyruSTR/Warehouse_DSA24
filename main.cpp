@@ -66,7 +66,7 @@ int main() {
             }
 
             if (!map->addItem(*tmpItem))
-                printf("Item with this name isnt exist\n");
+                printf("Item with this name already exist\n");
         }
         else if(command == "-r") {
             int removingItemId;
