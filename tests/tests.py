@@ -6,6 +6,8 @@ def run_tests(tests_dir, command):
     # Iterate through all test folders
 
     for test_folder in Path(tests_dir).iterdir():
+        if test_folder.name == "__pycache__":
+            continue
         if test_folder.is_dir():  # Ensure it's a directory
             input_file = test_folder / "input"
             expected_file = test_folder / "expected_output"
