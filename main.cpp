@@ -57,7 +57,7 @@ int main() {
                 continue;
             }
 
-            std::cout << "Enter the count: ";
+            std::cout << "Enter the count: \n";
             if (!(std::cin >> tmpItem->count)) {
                 std::cerr << "Invalid input for count!" << std::endl;
                 std::cin.clear();
