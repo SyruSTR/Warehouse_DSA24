@@ -232,6 +232,10 @@ namespace Warehouse {
             ++i;
         }
 
+        if (i == buffer_size_) {
+            std::cerr << "Hashmap overflow" << std::endl;
+            return false;
+        }
         if(first_deleted == -1) {
             table[hash1] = new Node(value);
             non_nullptr++;
