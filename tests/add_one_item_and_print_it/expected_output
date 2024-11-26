@@ -1,0 +1,7 @@
+Enter a command, use '-h' for help
+Enter the itemID: Enter the item name: Enter the price: Enter the count: 
+123456 first item 1 10
+Main info:
+Size: 1
+Non_nullptr_elements: 1
+Buffer size: 4
