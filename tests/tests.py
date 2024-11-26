@@ -23,17 +23,21 @@ def run_tests(tests_dir, command):
                 expected_output = expfile.read()
 
             # Run the command with input
-            result = subprocess.run(
-                command, input=input_data, text=True, capture_output=True
-            )
+            try:
+                result = subprocess.run(
+                    command, input=input_data, text=True, capture_output=True,
+                    timeout=2.0
+                )
 
-            # Compare actual output with expected output
-            if result.stdout.strip() == expected_output.strip():
-                print(f"{test_folder.name}: PASSED")
-            else:
-                print(f"{test_folder.name}: FAILED")
-                print(f"Expected:\n{expected_output}")
-                print(f"Got:\n{result.stdout}")
+                # Compare actual output with expected output
+                if result.stdout.strip() == expected_output.strip():
+                    print(f"{test_folder.name}: PASSED")
+                else:
+                    print(f"{test_folder.name}: FAILED")
+                    print(f"Expected:\n{expected_output}")
+                    print(f"Got:\n{result.stdout}")
+            except:
+                print(f"{test_folder.name}: TIMEOUT")
 
 # Example usage
 tests_directory = "tests"  # Path to your tests folder
