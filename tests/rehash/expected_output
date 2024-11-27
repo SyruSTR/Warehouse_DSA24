@@ -1,1 +1,23 @@
 Enter a command, use '-h' for help
+Enter the itemID: Enter the item name: Enter the price: Enter the count: 
+Enter the itemID: Enter the item name: Enter the price: Enter the count: 
+Enter the itemID: Enter the item name: Enter the price: Enter the count: 
+Enter the itemID: Enter the item name: Enter the price: Enter the count: 
+Main info:
+Size: 4
+Non_nullptr_elements: 4
+Buffer size: 8
+Enter the itemID to remove from the warehouse by itemID
+Enter the itemID to remove from the warehouse by itemID
+Enter the itemID to remove from the warehouse by itemID
+Main info:
+Size: 1
+Non_nullptr_elements: 4
+Buffer size: 8
+Enter the itemID: Enter the item name: Enter the price: Enter the count: 
+Main info:
+Size: 2
+Non_nullptr_elements: 2
+Buffer size: 8
+112233 item 4 1 1
+123456 item 1 1 1
