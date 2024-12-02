@@ -113,7 +113,7 @@ namespace Warehouse {
 
         int i = 0;
         while(table[hash1] !=NULL && i < buffer_size_) {
-            if(table[hash1]->state) {
+            if(table[hash1]->value == key && table[hash1]->state) {
                 return table[hash1];
             }
             hash1 = (hash1+hash2) % buffer_size_;
